@@ -40,21 +40,33 @@ class FootballMetrics:
         
         # Calcul de la distance du but (coordonnées normalisées 0-100)
         goal_x, goal_y = 100, 50  # Centre du but adverse
+        
+        # Gérer les noms de colonnes flexibles
+        x_col = 'x_coordinate' if 'x_coordinate' in shots_data.columns else 'x'
+        y_col = 'y_coordinate' if 'y_coordinate' in shots_data.columns else 'y'
+        
         shots_data['distance_to_goal'] = np.sqrt(
-            (shots_data['x_coordinate'] - goal_x) ** 2 + 
-            (shots_data['y_coordinate'] - goal_y) ** 2
+            (shots_data[x_col] - goal_x) ** 2 + 
+            (shots_data[y_col] - goal_y) ** 2
         )
         
         # Calcul de l'angle de tir
-        shots_data['angle'] = np.abs(shots_data['y_coordinate'] - goal_y) / shots_data['distance_to_goal']
+        shots_data['angle'] = np.abs(shots_data[y_col] - goal_y) / shots_data['distance_to_goal']
         
         # Modèle xG simplifié (à remplacer par ML)
         base_xg = 1 / (1 + np.exp(0.1 * shots_data['distance_to_goal'] - 3))
         
         # Ajustements selon la situation
-        situation_multiplier = shots_data['event_details'].apply(
-            lambda x: self._get_situation_multiplier(x) if pd.notna(x) else 1.0
-        )
+        if 'event_details' in shots_data.columns:
+            situation_multiplier = shots_data['event_details'].apply(
+                lambda x: self._get_situation_multiplier(x) if pd.notna(x) else 1.0
+            )
+        elif 'situation' in shots_data.columns:
+            situation_multiplier = shots_data['situation'].apply(
+                lambda x: self._get_situation_multiplier(x) if pd.notna(x) else 1.0
+            )
+        else:
+            situation_multiplier = 1.0
         
         shots_data['xg'] = base_xg * situation_multiplier
         shots_data['xg'] = np.clip(shots_data['xg'], 0, 1)  # Limiter entre 0 et 1
