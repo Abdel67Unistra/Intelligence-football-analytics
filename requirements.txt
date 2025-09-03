@@ -1,54 +1,9 @@
-# === Core Data Science ===
+streamlit>=1.28.0
 pandas>=2.0.0
 numpy>=1.24.0
-scikit-learn>=1.3.0
-scipy>=1.10.0
-
-# === Database ===
-psycopg2-binary>=2.9.0
-SQLAlchemy>=2.0.0
-alembic>=1.12.0
-
-# === Web APIs ===
-requests>=2.31.0
-beautifulsoup4>=4.12.0
-selenium>=4.15.0
-
-# === Visualization ===
+plotly>=5.17.0
 matplotlib>=3.7.0
 seaborn>=0.12.0
-plotly>=5.17.0
-bokeh>=3.2.0
-
-# === Dashboard ===
-streamlit>=1.28.0
-dash>=2.14.0
-jupyter>=1.0.0
-ipywidgets>=8.1.0
-
-# === Football APIs ===
-football-data-py>=0.1.0  # Wrapper pour Football-Data.org
-soccerdata>=1.4.0        # Multiple football data sources
-
-# === Geographic/Spatial ===
-folium>=0.14.0
-geopandas>=0.14.0
-
-# === Time Series ===
-statsmodels>=0.14.0
-
-# === Machine Learning ===
-xgboost>=1.7.0
-lightgbm>=4.0.0
-
-# === Utilities ===
+scikit-learn>=1.3.0
+requests>=2.31.0
 python-dotenv>=1.0.0
-pyyaml>=6.0.0
-click>=8.1.0
-tqdm>=4.66.0
-
-# === Development ===
-pytest>=7.4.0
-black>=23.9.0
-flake8>=6.1.0
-mypy>=1.6.0
