@@ -1,9 +1,9 @@
 """
-Dashboard Streamlit pour Staff Technique
-========================================
+Dashboard Streamlit pour Staff Technique - Version Streamlit Cloud
+================================================================
 
 Interface interactive pour les entraîneurs et staff technique.
-Fournit des analyses temps réel et aide à la décision.
+Version optimisée pour déploiement Streamlit Cloud sans dépendances PostgreSQL.
 
 Author: Football Analytics Platform
 """
@@ -14,14 +14,11 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import psycopg2
 from datetime import datetime, timedelta
 import sys
 import os
 
-# Ajout du chemin pour importer nos modules
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'modules'))
-from performance_analyzer import PlayerPerformanceAnalyzer, TacticalAnalyzer, FootballMetrics
+# Modules simplifiés pour Streamlit Cloud (sans dépendances externes)
 
 # Configuration de la page Streamlit
 st.set_page_config(
@@ -65,22 +62,14 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Fonction de connexion à la base de données
-@st.cache_resource
-def init_database_connection():
-    """Initialise la connexion à la base de données PostgreSQL"""
-    try:
-        # En développement, utiliser des paramètres par défaut
-        conn = psycopg2.connect(
-            host="localhost",
-            database="football_analytics",
-            user="postgres", 
-            password="password"
-        )
-        return conn
-    except Exception as e:
-        st.error(f"Erreur de connexion à la base de données : {e}")
-        return None
+# Fonction de génération de données simulées pour Streamlit Cloud
+@st.cache_data
+def generate_demo_data():
+    """Génère des données de démonstration pour le dashboard"""
+    return {
+        'status': 'demo_mode',
+        'message': 'Utilisation de données simulées pour la démonstration Streamlit Cloud'
+    }
 
 # Fonction de chargement des données équipes
 @st.cache_data
@@ -137,16 +126,19 @@ def main():
          "📈 Performance Temps Réel", "🔍 Scouting & Recrutement", "📊 Rapports"]
     )
     
-    # Connexion DB (simulation)
-    db_conn = None  # init_database_connection()
+    # Initialisation des données de démonstration
+    demo_data = generate_demo_data()
+    
+    # Message d'information pour Streamlit Cloud
+    st.info("🎮 Mode Démonstration Streamlit Cloud - Données simulées pour présentation")
     
     # Navigation entre les pages
     if page == "🏠 Vue d'ensemble":
         show_overview()
     elif page == "👤 Analyse Joueur":
-        show_player_analysis(db_conn)
+        show_player_analysis()
     elif page == "⚽ Analyse Équipe":
-        show_team_analysis(db_conn)
+        show_team_analysis()
     elif page == "📈 Performance Temps Réel":
         show_realtime_performance()
     elif page == "🔍 Scouting & Recrutement":
@@ -259,7 +251,7 @@ def show_overview():
         </div>
         """, unsafe_allow_html=True)
 
-def show_player_analysis(db_conn):
+def show_player_analysis():
     """Interface d'analyse des joueurs"""
     
     st.header("👤 Analyse Individuelle des Joueurs")
@@ -360,7 +352,7 @@ def show_player_analysis(db_conn):
             
             st.plotly_chart(fig, use_container_width=True)
 
-def show_team_analysis(db_conn):
+def show_team_analysis():
     """Interface d'analyse d'équipe"""
     
     st.header("⚽ Analyse Tactique d'Équipe")
