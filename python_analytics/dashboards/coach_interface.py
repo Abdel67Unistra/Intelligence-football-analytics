@@ -1,11 +1,12 @@
 """
-Dashboard Streamlit pour Staff Technique - Version Streamlit Cloud
-================================================================
+Racing Club de Strasbourg - Analytics Temps Réel
+===============================================
 
-Interface interactive pour les entraîneurs et staff technique.
-Version optimisée pour déploiement Streamlit Cloud sans dépendances PostgreSQL.
+Plateforme d'analyse exclusive RCS avec données réelles et formules statistiques avancées.
+Récupération automatique des actualités, stats et analyses en temps réel.
 
-Author: Football Analytics Platform
+Auteur: Football Analytics Platform  
+Équipe: Racing Club de Strasbourg - Données Réelles
 """
 
 import streamlit as st
@@ -17,40 +18,60 @@ from plotly.subplots import make_subplots
 from datetime import datetime, timedelta
 import sys
 import os
+import requests
+import warnings
+warnings.filterwarnings('ignore')
 
-# Modules simplifiés pour Streamlit Cloud (sans dépendances externes)
+# Import du module de collecte de données RCS
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'modules'))
 
 # Configuration de la page Streamlit
 st.set_page_config(
-    page_title="⚽ Football Analytics Dashboard",
-    page_icon="⚽",
+    page_title="🔵⚪ Racing Club de Strasbourg - Analytics Temps Réel",
+    page_icon="🔵",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Style CSS personnalisé
+# Initialisation du collecteur de données RCS
+@st.cache_resource
+def initialiser_collecteur():
+    """Initialise le collecteur de données RCS"""
+    try:
+        from collecteur_donnees_rcs import CollecteurDonneesRCS, AnalyseurStatistiquesRCS
+        collecteur = CollecteurDonneesRCS()
+        analyseur = AnalyseurStatistiquesRCS(collecteur)
+        return collecteur, analyseur
+    except ImportError:
+        st.error("⚠️ Module de collecte non disponible - Mode dégradé activé")
+        return None, None
+
+# CSS personnalisé RCS
 st.markdown("""
 <style>
     .main-header {
-        font-size: 3rem;
-        color: #1e3d59;
+        font-size: 2.5rem;
+        color: #0066CC;
         text-align: center;
+        background: linear-gradient(90deg, #0066CC, #FFFFFF, #0066CC);
+        padding: 1rem;
+        border-radius: 10px;
         margin-bottom: 2rem;
     }
-    .metric-card {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    .metric-rcs {
+        background: linear-gradient(135deg, #0066CC 0%, #004499 100%);
         padding: 1rem;
         border-radius: 10px;
         color: white;
         text-align: center;
         margin: 0.5rem 0;
     }
-    .warning-card {
-        background: #ff6b6b;
+    .rcs-card {
+        background: linear-gradient(90deg, #0066CC, #FFFFFF);
         padding: 1rem;
         border-radius: 10px;
-        color: white;
-        margin: 0.5rem 0;
+        border-left: 5px solid #0066CC;
+        margin: 1rem 0;
     }
     .success-card {
         background: #51cf66;
@@ -58,6 +79,12 @@ st.markdown("""
         border-radius: 10px;
         color: white;
         margin: 0.5rem 0;
+    }
+    .stSelectbox > div > div {
+        background-color: #f0f8ff;
+    }
+    h1, h2, h3 {
+        color: #0066CC;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -109,6 +136,77 @@ def load_players(team_id=None):
         all_players.extend(team_players)
     
     return pd.DataFrame(all_players)
+
+# Données effectif réel Racing Club de Strasbourg 2024-2025
+def obtenir_effectif_rcs():
+    """Retourne l'effectif actuel du RCS avec données réelles"""
+    effectif_data = [
+        # Gardiens
+        {"nom": "Matz Sels", "age": 32, "poste": "GB", "valeur_marche": 4.0, "titulaire": True, "nationalite": "Belgique"},
+        {"nom": "Alaa Bellaarouch", "age": 20, "poste": "GB", "valeur_marche": 0.5, "titulaire": False, "nationalite": "France"},
+        
+        # Défenseurs
+        {"nom": "Guela Doué", "age": 22, "poste": "DD", "valeur_marche": 8.0, "titulaire": True, "nationalite": "Côte d'Ivoire"},
+        {"nom": "Abakar Sylla", "age": 25, "poste": "DC", "valeur_marche": 3.5, "titulaire": True, "nationalite": "France"},
+        {"nom": "Saïdou Sow", "age": 22, "poste": "DC", "valeur_marche": 4.0, "titulaire": True, "nationalite": "Guinée"},
+        {"nom": "Mamadou Sarr", "age": 26, "poste": "DG", "valeur_marche": 3.0, "titulaire": True, "nationalite": "Sénégal"},
+        {"nom": "Marvin Senaya", "age": 22, "poste": "DD", "valeur_marche": 2.5, "titulaire": False, "nationalite": "France"},
+        {"nom": "Ismaël Doukouré", "age": 23, "poste": "DC", "valeur_marche": 2.0, "titulaire": False, "nationalite": "France"},
+        
+        # Milieux
+        {"nom": "Habib Diarra", "age": 20, "poste": "MC", "valeur_marche": 12.0, "titulaire": True, "nationalite": "Sénégal"},
+        {"nom": "Andrey Santos", "age": 20, "poste": "MDC", "valeur_marche": 8.0, "titulaire": True, "nationalite": "Brésil"},
+        {"nom": "Dilane Bakwa", "age": 21, "poste": "AD", "valeur_marche": 10.0, "titulaire": True, "nationalite": "France"},
+        {"nom": "Sebastian Nanasi", "age": 22, "poste": "AG", "valeur_marche": 6.0, "titulaire": True, "nationalite": "Suède"},
+        {"nom": "Caleb Wiley", "age": 19, "poste": "DG", "valeur_marche": 4.0, "titulaire": False, "nationalite": "USA"},
+        {"nom": "Pape Diong", "age": 20, "poste": "MC", "valeur_marche": 1.5, "titulaire": False, "nationalite": "Sénégal"},
+        
+        # Attaquants
+        {"nom": "Emanuel Emegha", "age": 21, "poste": "BU", "valeur_marche": 8.0, "titulaire": True, "nationalite": "Pays-Bas"},
+        {"nom": "Félix Lemaréchal", "age": 19, "poste": "MOC", "valeur_marche": 4.0, "titulaire": False, "nationalite": "France"},
+        {"nom": "Abdoul Ouattara", "age": 18, "poste": "AD", "valeur_marche": 2.0, "titulaire": False, "nationalite": "France"},
+        {"nom": "Moïse Sahi", "age": 18, "poste": "BU", "valeur_marche": 1.0, "titulaire": False, "nationalite": "France"},
+        {"nom": "Jeremy Sebas", "age": 19, "poste": "BU", "valeur_marche": 0.8, "titulaire": False, "nationalite": "France"}
+    ]
+    
+    return pd.DataFrame(effectif_data)
+
+def calculer_xg_rcs(distance, situation, joueur):
+    """Calcule l'xG adapté au style RCS"""
+    # xG de base selon distance
+    xg_base = max(0.05, 1.0 - (distance / 40))
+    
+    # Bonus situation (style contre-attaque RCS)
+    if situation == "contre_attaque":
+        xg_base *= 1.35
+    elif situation == "corner":
+        xg_base *= 0.9
+    elif situation == "coup_franc":
+        xg_base *= 0.8
+    
+    # Bonus finisseurs RCS
+    bonus_finisseurs = {
+        "Emanuel Emegha": 1.15,
+        "Dilane Bakwa": 1.10,
+        "Habib Diarra": 1.08,
+        "Sebastian Nanasi": 1.05
+    }
+    
+    if joueur in bonus_finisseurs:
+        xg_base *= bonus_finisseurs[joueur]
+    
+    return min(0.95, xg_base)
+
+def obtenir_composition_ideale_rcs():
+    """Composition idéale 4-2-3-1 RCS"""
+    return {
+        "formation": "4-2-3-1",
+        "gardien": "Matz Sels",
+        "defenseurs": ["Guela Doué", "Abakar Sylla", "Saïdou Sow", "Mamadou Sarr"],
+        "milieux_defensifs": ["Andrey Santos", "Habib Diarra"],
+        "milieux_offensifs": ["Dilane Bakwa", "Sebastian Nanasi", "Caleb Wiley"],
+        "attaquant": "Emanuel Emegha"
+    }
 
 # Fonction principale du dashboard
 def main():
