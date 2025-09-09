@@ -192,3 +192,58 @@ models/
 # Database backups
 *.sql.backup
 *.dump
+
+# ===============================
+# FICHIERS TEMPORAIRES RCS - NE PAS SUIVRE
+# ===============================
+
+# Scripts de démo et test
+demo_*.py
+test_*.py
+*_test.py
+*_demo.py
+simple_*.py
+ultra_simple.py
+validate_*.py
+validation_*.py
+check_*.py
+
+# Scripts de déploiement temporaires
+deploy_*.py
+deploy_*.sh
+sync_*.py
+sync_*.sh
+emergency_*.py
+emergency_*.sh
+fix_*.py
+fix_*.sh
+urgent_*.py
+force_*.py
+
+# Documentations temporaires
+*_TEMP.md
+*_OLD.md
+ACCOMPLISSEMENTS_*.md
+DEPLOIEMENT_*.md
+MANUEL_*.md
+PROJECT_SUMMARY.txt
+QUICK_START.md
+streamlit_README.md
+
+# Interfaces temporaires
+coach_interface_*_temp.py
+coach_interface_*_new.py
+coach_interface_*_real.py
+coach_interface_*_ultra_exclusif.py
+coach_interface_streamlit_clean.py
+dashboard_*.py
+*_minimal.py
+*_simple.py
+console_*.py
+lancer_*.py
+
+# Fichiers de configuration temporaires
+Procfile
+Dockerfile
+railway.toml
+requirements_streamlit.txt

@@ -1,53 +1,63 @@
-# ⚽ Football Analytics Platform
+# 🔵⚪ Racing Club de Strasbourg - Analytics Platform v2.0
 
-> **Système complet d'intelligence footballistique pour l'aide à la décision sportive**
+> **Plateforme d'analyse avancée entièrement restructurée pour le Racing Club de Strasbourg**
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue.svg)](https://postgresql.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-2.0-brightgreen.svg)](https://streamlit.io)
 [![R](https://img.shields.io/badge/R-4.0+-blue.svg)](https://r-project.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg)](https://streamlit.io)
+[![RCS](https://img.shields.io/badge/RCS-2024--2025-0066CC.svg)](https://rcstrasbourg.fr)
+[![Ligue 1](https://img.shields.io/badge/Ligue%201-10ème%20place-yellow.svg)](https://ligue1.fr)
+[![Analytics](https://img.shields.io/badge/Analytics-IA%20Avancés-orange.svg)](https://github.com)
 
-## 📋 Vue d'ensemble
+## 🚀 Nouvelle Version 2.0 - Restructurée Complètement
 
-La **Football Analytics Platform** est un écosystème complet d'analyse de données footballistiques qui combine :
+**Racing Club de Strasbourg Analytics Platform** a été **entièrement restructurée** avec de nouvelles fonctionnalités d'intelligence artificielle, des analyses prédictives avancées et une interface moderne.
 
-- 🗄️ **Base de données PostgreSQL** optimisée pour le sport
-- 🐍 **Analytics Python** avec modules spécialisés football  
-- 📊 **Modèles prédictifs R** et visualisations avancées
-- 📱 **Dashboard interactif** pour le staff technique
-- 🤖 **Intelligence artificielle** pour le scouting et recrutement
+### 🎯 Mission Élargie
+- **🤖 Intelligence Artificielle** : Prédictions de blessures, optimisation de compositions
+- **📊 Analytics Avancés** : Modèles ML (Random Forest, XGBoost), clustering de joueurs
+- **📋 Rapports Automatisés** : Génération HTML/JSON/PDF avec recommandations IA
+- **🌐 Interface Moderne** : Dashboard Streamlit interactif et responsive
+- **📈 Analyses R** : Modèles prédictifs, visualisations avancées, clustering
 
-### 🎯 Objectifs
-
-- **Performance** : Analyser les performances individuelles et collectives
-- **Tactique** : Comprendre les systèmes de jeu et formations
-- **Recrutement** : Identifier les talents et opportunités de transfert
-- **Prédiction** : Anticiper les résultats et tendances
-- **Décision** : Fournir des insights actionnables au staff
+### ✨ Nouveautés Version 2.0
+- **🔧 Architecture Unifiée** : Script principal `main_rcs.py` avec menu interactif
+- **🤖 IA Prédictive** : Analyse des risques de blessures avec machine learning
+- **📊 Graphiques Interactifs** : Plotly, heatmaps, analyses spatiales
+- **📋 Système de Rapports** : Export multi-format automatisé
+- **🎯 Optimisation IA** : Compositions d'équipe optimisées par algorithmes
+- **🏥 Suivi Médical** : Alertes préventives et recommandations
 
 ---
 
-## 🚀 Fonctionnalités Principales
+## 🔵⚪ Données RCS 2024-2025
 
-### 📊 Analyse de Performance
-- Suivi de forme des joueurs (10 derniers matchs)
-- Métriques avancées : xG, xA, PPDA
-- Scoring de consistance et tendances
-- Comparaisons inter-joueurs par poste
+### 👥 Effectif Complet (17 joueurs)
+- **Gardiens** : Matz Sels, Alaa Bellaarouch
+- **Défenseurs** : Guela Doué, Abakar Sylla, Saïdou Sow, Marvin Senaya, Thomas Delaine, Frédéric Guilbert, Caleb Wiley
+- **Milieux** : Habib Diarra, Andrey Santos, Ismaël Doukouré, Junior Mwanga, Sékou Mara, Dilane Bakwa
+- **Attaquants** : Emanuel Emegha, Félix Lemaréchal
 
-### ⚽ Métriques Football Avancées
-- **Expected Goals (xG)** : Qualité des occasions
-- **Expected Assists (xA)** : Créativité offensive  
-- **PPDA** : Intensité du pressing défensif
-- **Heat maps** : Zones d'action des joueurs
-- **Pass networks** : Connexions tactiques
+### 📊 Position Actuelle
+- **🏆 Classement** : 10ème place Ligue 1
+- **📈 Points** : 23 points en 17 matchs
+- **⚽ Bilan** : 6 victoires, 5 nuls, 6 défaites
+- **🥅 Buts** : 25 marqués, 28 encaissés
 
-### 🎯 Analyses Tactiques
-- Détection automatique de formations
-- Positions moyennes des joueurs
-- Analyses de possession et pressing
-- Métriques de transition défense/attaque
-- Comparaisons pré/post match
+---
+
+## 🚀 Fonctionnalités RCS
+
+### 📊 Analytics Exclusives RCS
+- **Vue d'ensemble** : Position, effectif, statistiques clés
+- **Effectif détaillé** : 17 joueurs avec données réelles (âge, poste, valeur, nationalité)
+- **Performances** : Analyse des 5 derniers matchs vs Marseille, Lille, Rennes, Reims, Nantes
+- **Métriques avancées** : xG RCS personnalisé, PPDA, analyses de forme
+
+### 🎯 Projections Saison
+- **Maintien** : Probabilité calculée en temps réel
+- **Projection points** : Estimation fin de saison basée sur forme actuelle
+- **Objectifs RCS** : Maintien confortable, développement jeunes, équilibre financier
 
 ### 🔍 Scouting & Recrutement IA
 - **Profilage automatique** : 8 types de joueurs

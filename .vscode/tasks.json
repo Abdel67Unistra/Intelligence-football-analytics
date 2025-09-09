@@ -2,9 +2,9 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Start Football Analytics Dashboard",
+			"label": "🔵⚪ Start RCS Analytics Platform",
 			"type": "shell",
-			"command": "streamlit run python_analytics/dashboards/coach_interface.py",
+			"command": "streamlit run rcs_analytics_platform.py",
 			"group": "build",
 			"isBackground": true,
 			"problemMatcher": [],
@@ -12,6 +12,33 @@
 				"echo": true,
 				"reveal": "always",
 				"focus": false,
+				"panel": "new"
+			}
+		},
+		{
+			"label": "📚 Start RCS Documentation System",
+			"type": "shell",
+			"command": "streamlit run rcs_documentation_system.py --server.port 8502",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new"
+			}
+		},
+		{
+			"label": "📊 Run R Analytics Scripts",
+			"type": "shell",
+			"command": "cd r_analytics && Rscript scripts/rcs_advanced_analytics.R",
+			"group": "build",
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
 				"panel": "new"
 			}
 		},

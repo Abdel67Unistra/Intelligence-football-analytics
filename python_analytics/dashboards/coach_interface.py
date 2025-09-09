@@ -234,7 +234,7 @@ def main():
     
     # Affichage conditionnel par page
     if page_rcs == "🏠 Vue d'ensemble RCS":
-        afficher_vue_ensemble_rcs(effectif_rcs, position_rcs, stats_rcs)
+        afficher_vue_ensemble_rcs(effectif_rcs, position_rcs, stats_rcs, resultats_rcs)
     
     elif page_rcs == "👥 Effectif RCS Complet":
         afficher_effectif_rcs_detaille(effectif_rcs)
@@ -251,7 +251,7 @@ def main():
     elif page_rcs == "⚽ Analyse Matches RCS":
         afficher_analyse_matches_rcs(resultats_rcs)
 
-def afficher_vue_ensemble_rcs(effectif, position, stats):
+def afficher_vue_ensemble_rcs(effectif, position, stats, resultats):
     """Vue d'ensemble exclusive RCS"""
     
     st.header("🏠 Vue d'Ensemble Racing Club de Strasbourg")
@@ -305,7 +305,7 @@ def afficher_vue_ensemble_rcs(effectif, position, stats):
     }
     
     fig_forme = px.bar(
-        resultats_rcs,
+        resultats,
         x="adversaire",
         y="note_equipe",
         color="resultat",
